@@ -25,9 +25,10 @@ jobs:
 
     - name: Build APK
       run: |
+        cd starter_app
         buildozer android debug
-      env:
-        ANDROIDSDKROOT: ${{ secrets.ANDROIDSDKROOT }}
+  env:
+    ANDROIDSDKROOT: ${{ secrets.ANDROIDSDKROOT }}
 
     - name: Upload APK artifact
       uses: actions/upload-artifact@v4
