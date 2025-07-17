@@ -26,6 +26,18 @@ jobs:
           python -m pip install --upgrade pip
           pip install cython==0.29.36
           pip install buildozer
+          
+      - name: Download Android cmdline-tools
+        run: |
+          mkdir -p $ANDROIDSDKROOT/cmdline-tools
+          cd $ANDROIDSDKROOT/cmdline-tools
+          curl -o commandlinetools.zip https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip
+          unzip -o commandlinetools.zip
+          mv cmdline-tools latest
+
+      - name: Accept Android SDK licenses
+        run: yes | $ANDROIDSDKROOT/cmdline-tools/latest/bin/sdkmanager --licenses
+   
 
       - name: Accept Android SDK licenses
         run: yes | $ANDROIDSDKROOT/cmdline-tools/latest/bin/sdkmanager --licenses
