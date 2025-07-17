@@ -18,6 +18,19 @@ jobs:
         with:
           python-version: '3.10'
 
+      - name: Download Android command line tools
+        run: |
+          mkdir -p $HOME/Android/cmdline-tools
+          cd $HOME/Android/cmdline-tools
+          wget https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip -O cmdline-tools.zip
+          unzip cmdline-tools.zip
+          # Move cmdline-tools folder to latest if not exists
+          if [ ! -d "$HOME/Android/cmdline-tools/latest" ]; then
+            mv cmdline-tools latest
+          else
+            echo "cmdline-tools/latest already exists, skipping move"
+          fi
+
       - name: Install Cython
         run: pip install cython==0.29.36
 
@@ -25,15 +38,6 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install buildozer
-
-      - name: Setup Android SDK cmdline-tools
-        run: |
-          mkdir -p $HOME/Android/cmdline-tools
-          if [ ! -d "$HOME/Android/cmdline-tools/latest" ]; then
-            mv $HOME/Android/cmdline-tools/cmdline-tools $HOME/Android/cmdline-tools/latest
-          else
-            echo "cmdline-tools/latest already exists, skipping move"
-          fi
 
       - name: Build APK
         run: |
@@ -47,4 +51,5 @@ jobs:
         with:
           name: app-debug-apk
           path: bin/*.apk
+
 
