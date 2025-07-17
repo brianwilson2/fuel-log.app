@@ -17,8 +17,8 @@ class FuelTracker(BoxLayout):
 
         self.add_widget(Label(text="Vehicle:", font_size=font_size))
         self.vehicle_spinner = Spinner(
-            text="Tiguan",
-            values=["Tiguan", "Transit"],
+            text="Transit",
+            values=["Transit", "Tiguan"],
             size_hint=(1, None),
             height=60,
             font_size=font_size,
